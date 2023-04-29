@@ -31,6 +31,6 @@ jobs:
       run: mvn clean verify
       
     - name: Copy Cucumber JSON Report
-        run: |
+        run:
           cd target/site/serenity
           cp index.html ../report/

@@ -22,7 +22,7 @@ jobs:
       - name: Copy Cucumber JSON Reports
         run: |
           cd target/site/serenity
-          cp index.html ../target/
+          cp index.html ../target
       - name: Commit Files Report # transfer the new html files back into the repository
         run: |
           git config --local user.name "MuhammadFikrri"

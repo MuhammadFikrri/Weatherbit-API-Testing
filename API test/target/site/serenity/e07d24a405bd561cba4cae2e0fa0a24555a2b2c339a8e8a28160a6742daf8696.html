@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Verify Hourly Forecast API with Valid Postal Code and Hours</title>
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<!--[if IE 7]>
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome-ie7.min.css">-->
+
+<link rel="stylesheet" type="text/css" href="fontawesome-free-5.7.2-web/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="fontawesome-free-5.7.2-web/css/v4-shims.min.css">
+
+<!-- JQuery -->
+<script type="text/javascript" src="scripts/jquery-1.11.1.min.js"></script><link rel="stylesheet" type="text/css" href="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.css">
+<link rel="stylesheet" type="text/css" href="chartist/dist/chartist.min.css">
+<script src="chartist/dist/chartist.min.js"></script>
+<script src="chartist/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.min.js"></script>
+<!-- Required Stylesheets -->
+<link href="bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+
+<!-- Required Javascript -->
+<script src="bootstrap-treeview/dist/bootstrap-treeview.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<link rel="stylesheet" href="css/core.css"/>
+<link rel="stylesheet" href="css/link.css"/>
+<link type="text/css" media="screen" href="css/screen.css" rel="Stylesheet"/><!-- JQuery-UI -->
+<link type="text/css" href="jqueryui/1.11.2-start/jquery-ui.min.css" rel="Stylesheet" />
+<script type="text/javascript" src="jqueryui/1.11.2-start/jquery-ui.min.js"></script><!-- DataTables -->
+<link type="text/css" href="datatables/1.10.20/datatables.min.css" rel="stylesheet" />
+<script type="text/javascript" src="datatables/1.10.20/datatables.min.js"></script>
+<script type="text/javascript" src="datatables/1.10.20/time-elapsed-dhms.js"></script>
+
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="datatables/1.10.20/datatables.bootstrap4.min.js"></script>
+<link type="text/css" href="datatables/1.10.20/datatables.bootstrap4.min.css" rel="stylesheet" />
+
+<script>
+    jQuery.fn.dataTable.ext.type.order['time-elapsed-dhms-pre'] = function(data) {
+
+        var matches = data.match(/^(\d+(?:\.\d+)?)\s*([a-z]+)/i);
+        var multipliers = {
+            ms: 1,
+            s: 1000,
+            m: 60000,
+            h: 3600000,
+            d: 86400000
+        };
+
+        if (matches) {
+            var multiplier = multipliers[matches[2].toLowerCase()];
+            return parseFloat(matches[1]) * multiplier;
+        } else {
+            return -1;
+        };
+    };
+</script>
+<!-- ImgPreview -->
+<script src="scripts/imgpreview.full.jquery.js" type="text/javascript"></script>
+</head>
+
+<body class="results-page">
+
+
+<div id="topheader">
+    <div id="topbanner">
+        <div id="logo"><a href="index.html"><img src="images/serenity-logo.png" border="0"/></a></div>
+        <div id="projectname-banner" style="float:right">
+            <span class="projectname">
+                <span class="projecttitle"></span>
+                <span class="projectsubtitle"></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="middlecontent">
+    <div id="contenttop">
+        <div class="middlebg">
+        <span class="breadcrumbs">
+            <a href="index.html" class="breadcrumbs">Home</a>
+
+            > <a href="5b0b500db2dfd98ccb3584eed6275bc7ba4d506665983d1b8fc2e8acb36c8678.html">Api</a>
+            > <a href="8728b04868d5d23bee8bb8cf341b7cd727dd6be79624d771dcfea33eb2ed2ebe.html">Get Hourly Forecast</a>
+        > Verify Hourly Forecast API with Valid Postal Code and Hours
+        </span>
+        </div>
+        <div class="rightbg"></div>
+    </div>
+
+    <div class="clr"></div>
+
+    <!--/* starts second table*/-->
+<div>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#"><i class="fa fa-check-square-o"></i> Overall Test Results</a>
+        </li>
+        <li >
+            <a href="capabilities.html"><i class="fa fa-book"></i> Requirements</a>
+        </li>
+        <li >
+            <a href="7ea0a5e2d679b9deeda9910ae4a9bcd3a281e0d908303a9e16e486103e98880c.html"><i class="fa fa-comments-o"></i> Capabilities</a>
+        </li>
+        <li >
+            <a href="576946480b52ad056d6f5bddf874399c83582ecf90963cc074a14c70580e7d9f.html"><i class="fa fa-comments-o"></i> Features</a>
+        </li>
+    </ul>
+    <span class="date-and-time"><a href="build-info.html"><i class="fa fa-info-circle"></i></a> Report generated 29-04-2023 07:28</span>
+    <br style="clear:left"/>
+</div>
+    <div class="clr"></div>
+
+
+    <div id="contentbody">
+        <div class="titlebar">
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td>
+                                <div>
+                                    <h3 class="discreet-story-header">
+                                        <i class="fa fa-2x fa-comments-o"></i>
+                                        <span class="story-header-title">Get Hourly Forecast </span>
+                                    </h3>
+
+                                </div>
+
+                        </td>
+                        <td valign="top">
+                                <p class="tag">
+                                    <span class="badge tag-badge" style="background:default;">
+                                    <i class="fa fa-tag"></i>&nbsp;<a class="tagLink" style="background:default;"
+                                                                      href="24aacda3e479b17aef4c2fafa3fb6f2fcac1704edab883a1848f7adc3af41546.html">Test
+                                    (tag)</a>
+                                </span>
+                                </p>
+                                <p class="tag">
+                                    <span class="badge tag-badge" style="background:default;">
+                                    <i class="fa fa-tag"></i>&nbsp;<a class="tagLink" style="background:default;"
+                                                                      href="3aa69cbc9baeeb22fe8b2b65e2ace5c7acfb1f6c450adf739bdcdbbc9bc332d2.html">Get Forecasts
+                                    (tag)</a>
+                                </span>
+                                </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="story-title">
+                <table class="outcome-header">
+                    <tr>
+                        <td colspan="2" class="test-title-bar">
+                            <span class="outcome-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon fa-2x' title='SUCCESS'></i></a></span>
+                            <span class="test-case-title">
+                                <span class="success-color">
+                                    Verify Hourly Forecast API with Valid Postal Code and Hours
+                                        <span class="related-issue-title"></span>
+                                </span>
+                            </span>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="clr"></div>
+
+
+    <div id="beforetable"></div>
+
+
+    <div id="tablecontents">
+        <div>
+            <table class="step-table">
+                <tr class="step-titles">
+                    <th width="65">
+                    </th>
+                    <th class="step-description-column greentext">
+                        Steps
+                    </th>
+
+                    <th width="130" class="greentext">Outcome</th>
+                    <th width="100" class="greentext"><i title="Duration" class="far fa-clock"></i></th>
+                </tr>
+                <tr class="step-table-separator">
+                    <td colspan="5"></td>
+                </tr>
+
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="0"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection0 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection0')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                Given User already have valid API key
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1s 278ms</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection0" class="step-table-nested" style="display:none;">
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="0-0"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                Get current weather
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step">1s 032ms</span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="1"></a>
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1')"
+                                   style="display:block">
+                                    <i class="fa fa-plus-square-o imgstepSection1 success-icon"
+                                       style="margin-left: 20px; float:left; padding-right:5px"></i>
+                                </a>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                <a href="javaScript:void(0)" onClick="toggleDiv('stepSection1')"
+                                   style="display:block;">
+                                    <span class="top-level-step">
+                                                When User sent GET hourly forecast request
+                                        </span>
+                                </a>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">1s 818ms</span></td>
+                    </tr>
+                        <tr>
+                            <td colspan="5">
+                                <table id="stepSection1" class="step-table-nested" style="display:none;">
+                    <tr class="test-SUCCESS">
+
+                        <td width="70" class="step-icon">
+                            <a name="1-0"></a>
+                                <span style="margin-left: 40px;"
+                                      class="nested-group-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="nested-group-step">
+                                                GET https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=28546&amp;hours=3&amp;key=d7ae1c794bf540ec9a40b5eb3c9e76d0
+                                        </span>
+                                <span class="evidence">
+                                        <span class="piece-of-evidence">
+                    <span>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="collapse"
+                                data-target="#restModal-REST-4">
+                            REST Query
+                        </button>
+                    </span>
+                    <!-- Modal -->
+                    <div class="rest-query-details">
+                        <div class="collapse multi-collapse" id="restModal-REST-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>Response</h4>
+                                        <p>URL: https://api.weatherbit.io/v2.0/forecast/hourly?postal_code=28546&hours=3&key=d7ae1c794bf540ec9a40b5eb3c9e76d0</p>
+                                        <p>Status code: 200</p>
+                                        <p>Content Type: null</p>
+                                        <h4>Request Headers</h4>
+                                        <pre>Authorization=Bearerd7ae1c794bf540ec9a40b5eb3c9e76d0<br>Accept=*/*</pre>
+                                        <h4>Content Body</h4>
+                                        <pre></pre>
+                                        <h4>Request Cookies</h4>
+                                        <pre></pre>
+                                        <h4>Response Headers</h4>
+                                        <pre>server: openresty/1.19.3.1<br>date: Sat, 29 Apr 2023 00:28:04 GMT<br>content-type: application/json; charset=utf-8<br>transfer-encoding: chunked<br>keep-alive: timeout=5<br>x-ratelimit-limit: 1500<br>x-ratelimit-remaining: 1492<br>x-ratelimit-reset: 1682812799<br>x-proxy-cache: MISS<br>access-control-allow-origin: *<br>access-control-allow-methods: GET, OPTIONS, POST<br>access-control-allow-headers: DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range<br>access-control-expose-headers: DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range<br>content-encoding: gzip</pre>
+                                    <h4>Response Body</h4>
+                                        <pre>{<br>    &quot;city_name&quot;: &quot;Onslow&quot;,<br>    &quot;country_code&quot;: &quot;US&quot;,<br>    &quot;data&quot;: [<br>        {<br>            &quot;app_temp&quot;: 19.6,<br>            &quot;clouds&quot;: 18,<br>            &quot;clouds_hi&quot;: 0,<br>            &quot;clouds_low&quot;: 18,<br>            &quot;clouds_mid&quot;: 0,<br>            &quot;datetime&quot;: &quot;2023-04-29:01&quot;,<br>            &quot;dewpt&quot;: 16.8,<br>            &quot;dhi&quot;: 0,<br>            &quot;dni&quot;: 0,<br>            &quot;ghi&quot;: 0,<br>            &quot;ozone&quot;: 340.3,<br>            &quot;pod&quot;: &quot;n&quot;,<br>            &quot;pop&quot;: 0,<br>            &quot;precip&quot;: 0,<br>            &quot;pres&quot;: 1005.5,<br>            &quot;rh&quot;: 85,<br>            &quot;slp&quot;: 1006.4,<br>            &quot;snow&quot;: 0,<br>            &quot;snow_depth&quot;: 0,<br>            &quot;solar_rad&quot;: 0,<br>            &quot;temp&quot;: 19.3,<br>            &quot;timestamp_local&quot;: &quot;2023-04-28T21:00:00&quot;,<br>            &quot;timestamp_utc&quot;: &quot;2023-04-29T01:00:00&quot;,<br>            &quot;ts&quot;: 1682730000,<br>            &quot;uv&quot;: 0,<br>            &quot;vis&quot;: 15.896,<br>            &quot;weather&quot;: {<br>                &quot;description&quot;: &quot;Few clouds&quot;,<br>                &quot;code&quot;: 801,<br>                &quot;icon&quot;: &quot;c02n&quot;<br>            },<br>            &quot;wind_cdir&quot;: &quot;SSE&quot;,<br>            &quot;wind_cdir_full&quot;: &quot;south-southeast&quot;,<br>            &quot;wind_dir&quot;: 161,<br>            &quot;wind_gust_spd&quot;: 4.7,<br>            &quot;wind_spd&quot;: 2.46<br>        },<br>        {<br>            &quot;app_temp&quot;: 21.1,<br>            &quot;clouds&quot;: 0,<br>            &quot;clouds_hi&quot;: 0,<br>            &quot;clouds_low&quot;: 0,<br>            &quot;clouds_mid&quot;: 0,<br>            &quot;datetime&quot;: &quot;2023-04-29:02&quot;,<br>            &quot;dewpt&quot;: 17.3,<br>            &quot;dhi&quot;: 0,<br>            &quot;dni&quot;: 0,<br>            &quot;ghi&quot;: 0,<br>            &quot;ozone&quot;: 339.3,<br>            &quot;pod&quot;: &quot;n&quot;,<br>            &quot;pop&quot;: 20,<br>            &quot;precip&quot;: 0.077941895,<br>            &quot;pres&quot;: 1005,<br>            &quot;rh&quot;: 80,<br>            &quot;slp&quot;: 1005.9,<br>            &quot;snow&quot;: 0,<br>            &quot;snow_depth&quot;: 0,<br>            &quot;solar_rad&quot;: 0,<br>            &quot;temp&quot;: 20.8,<br>            &quot;timestamp_local&quot;: &quot;2023-04-28T22:00:00&quot;,<br>            &quot;timestamp_utc&quot;: &quot;2023-04-29T02:00:00&quot;,<br>            &quot;ts&quot;: 1682733600,<br>            &quot;uv&quot;: 0,<br>            &quot;vis&quot;: 18.4,<br>            &quot;weather&quot;: {<br>                &quot;description&quot;: &quot;Clear Sky&quot;,<br>                &quot;code&quot;: 800,<br>                &quot;icon&quot;: &quot;c01n&quot;<br>            },<br>            &quot;wind_cdir&quot;: &quot;SSW&quot;,<br>            &quot;wind_cdir_full&quot;: &quot;south-southwest&quot;,<br>            &quot;wind_dir&quot;: 198,<br>            &quot;wind_gust_spd&quot;: 8.19,<br>            &quot;wind_spd&quot;: 4.45<br>        },<br>        {<br>            &quot;app_temp&quot;: 20.2,<br>            &quot;clouds&quot;: 0,<br>            &quot;clouds_hi&quot;: 0,<br>            &quot;clouds_low&quot;: 0,<br>            &quot;clouds_mid&quot;: 0,<br>            &quot;datetime&quot;: &quot;2023-04-29:03&quot;,<br>            &quot;dewpt&quot;: 17.8,<br>            &quot;dhi&quot;: 0,<br>            &quot;dni&quot;: 0,<br>            &quot;ghi&quot;: 0,<br>            &quot;ozone&quot;: 339.3,<br>            &quot;pod&quot;: &quot;n&quot;,<br>            &quot;pop&quot;: 0,<br>            &quot;precip&quot;: 0,<br>            &quot;pres&quot;: 1005.5,<br>            &quot;rh&quot;: 88,<br>            &quot;slp&quot;: 1006.4,<br>            &quot;snow&quot;: 0,<br>            &quot;snow_depth&quot;: 0,<br>            &quot;solar_rad&quot;: 0,<br>            &quot;temp&quot;: 19.9,<br>            &quot;timestamp_local&quot;: &quot;2023-04-28T23:00:00&quot;,<br>            &quot;timestamp_utc&quot;: &quot;2023-04-29T03:00:00&quot;,<br>            &quot;ts&quot;: 1682737200,<br>            &quot;uv&quot;: 0,<br>            &quot;vis&quot;: 14.6,<br>            &quot;weather&quot;: {<br>                &quot;description&quot;: &quot;Clear Sky&quot;,<br>                &quot;code&quot;: 800,<br>                &quot;icon&quot;: &quot;c01n&quot;<br>            },<br>            &quot;wind_cdir&quot;: &quot;SSW&quot;,<br>            &quot;wind_cdir_full&quot;: &quot;south-southwest&quot;,<br>            &quot;wind_dir&quot;: 211,<br>            &quot;wind_gust_spd&quot;: 7.12,<br>            &quot;wind_spd&quot;: 2.46<br>        }<br>    ],<br>    &quot;lat&quot;: &quot;34.774&quot;,<br>    &quot;lon&quot;: &quot;-77.3781&quot;,<br>    &quot;state_code&quot;: &quot;NC&quot;,<br>    &quot;timezone&quot;: &quot;America/New_York&quot;<br>}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        </span>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="nested-group-step">SUCCESS</span></td>
+                        <td width="100"><span class="nested-group-step"></span></td>
+                    </tr>
+
+                                </table>
+                            </td>
+                        </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="2"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                Then Should return status code 200
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">029ms</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="3"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                And It should parse the response body of forecast request
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">473ms</span></td>
+                    </tr>
+                    <tr class="test-SUCCESS">
+
+                        <td width="50" class="step-icon">
+                            <a name="4"></a>
+                                <span style="margin-left: 20px;"
+                                      class="top-level-icon"><a href='##beforetable'><i class='fa fa-check-circle-o success-icon ' title='SUCCESS'></i></a>
+                                </span>
+                        </td>
+
+                        <td class="step-description-column">
+                            <div class="step-description">
+                                    <span class="top-level-step">
+                                                And Get the value of the timestamp_utc, weather for all the data entries
+                                        </span>
+                                <span class="evidence">
+                                </span>
+                            </div>
+                        </td>
+
+                        <td width="130"><span class="top-level-step">SUCCESS</span></td>
+                        <td width="100"><span class="top-level-step">030ms</span></td>
+                    </tr>
+                <tr class="test-SUCCESS">
+                        <td colspan="2"></td>
+                    <td width="130"><span class="top-level-step"><em>SUCCESS</em></span></td>
+                    <td width="100"><span class="top-level-step"><em>3.73s</em></span></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div id="beforefooter"></div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <span class="version">Serenity BDD version 2.4.51</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function toggleDiv(divId) {
+            $("#" + divId).toggle();
+            var imgsrc = $(".img" + divId).attr('src');
+            if (imgsrc == 'images/plus.png') {
+                $(".img" + divId).attr("src", function () {
+                    return "images/minus.png";
+                });
+
+            } else {
+                $(".img" + divId).attr("src", function () {
+                    return "images/plus.png";
+                });
+            }
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        $(document).ready(function () {
+            $('img.screenshot').imgPreview({
+                imgCSS: {
+                    width: '500px'
+                },
+                distanceFromCursor: {top: 10, left: -200}
+            });
+        });
+
+        //]]>
+    </script>
+    <div id="imgPreviewContainer" style="position: absolute; top: 612px; left: 355px; display: none; " class=""><img
+                src="" style="display: none; "></div>
+    <div id="imgPreviewContainer2" style="position: absolute; top: 925px; left: 320px; display: none; " class="">
+        <img style="width: 200px; display: none; " src=""></div>
+    <div id="imgPreviewWithStyles" style="position: absolute; top: 1272px; left: 321px; display: none; " class="">
+        <img style="height: 200px; opacity: 1; display: none; " src=""></div>
+    <div id="imgPreviewWithStyles2" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+    <div id="imgPreviewWithStyles3" style="display: none; position: absolute; "><img style="height: 200px; "></div>
+
+</div>
+</body>
+</html>

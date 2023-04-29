@@ -1,5 +1,6 @@
 starter\CucumberTestSuite.class
 starter\Weatherbit\Utils\Constant.class
 starter\Weatherbit\GetWeatherAPI.class
+starter\Weatherbit\StepDef\GetForecastStepDef.class
 starter\Weatherbit\StepDef\GeneralStepDef.class
 starter\Weatherbit\StepDef\GetWeatherStepDef.class

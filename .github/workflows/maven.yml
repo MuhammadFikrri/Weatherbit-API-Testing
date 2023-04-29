@@ -29,3 +29,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean verify
+      
+    - name: Copy Cucumber JSON Report
+        run: |
+          cd target/site/serenity
+          cp index.html ../report/

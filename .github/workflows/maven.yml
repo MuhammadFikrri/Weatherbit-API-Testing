@@ -32,4 +32,6 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
+          branch: main # the branch to push to
+          force: true # overwrite the branch if it exists
+          directory: ./target

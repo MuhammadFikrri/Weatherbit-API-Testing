@@ -4,31 +4,26 @@ jobs:
     docker:
       - image: circleci/openjdk:11
     working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
     steps:
       - checkout
-      - run:
-          name: Build Project
-          command: |
-            ./gradle build
-      - run:
-          name: Run Unit Tests
-          command: |
-            ./gradle test
-  api_test:
-    docker:
-      - image: circleci/openjdk:11
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - run:
-          name: Run API Tests
-          command: |
-            ./gradle test --tests ApiTest
-workflows:
-  version: 2.1
-  build_and_test:
-    jobs:
-      - build
-      - api_test:
-          requires:
-            - build
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      # run tests!
+      - run: mvn clean verify

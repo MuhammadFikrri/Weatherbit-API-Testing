@@ -23,7 +23,7 @@ public class GetWeatherStepDef
         getWeatherAPI.getCurrentWeather(Constant.WEATHER_API_KEY);
     }
 
-    @When("User sents GET request")
+    @When("User sent GET request")
     public void theUserSentsGETRequestAndGetTheStateCodeValue()
     {
         SerenityRest.when().get(Constant.BASE_URL);
@@ -35,7 +35,7 @@ public class GetWeatherStepDef
         List<Map<String, String>> responseDataList = SerenityRest.lastResponse().getBody().jsonPath().getList("data");
         String state_code = responseDataList.get(0).get("state_code");
         Assertions.assertThat(stateCode).isEqualTo(state_code);
-        System.out.println("Response body state code " + state_code + " equal to expected state code " + stateCode);
+        System.out.println("Response body state_code " + state_code + " equal to expected state code " + stateCode);
     }
 
     @And("It should parse the response body")

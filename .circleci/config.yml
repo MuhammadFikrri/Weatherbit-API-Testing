@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Build Project
           command: |
-            ./gradlew build
+            ./gradle build
       - run:
           name: Run Unit Tests
           command: |

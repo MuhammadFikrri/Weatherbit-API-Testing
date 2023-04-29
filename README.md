@@ -1,5 +1,5 @@
-# UI-Automation-ServiceNsw
-Study case [Website ServiceNsw](https://www.service.nsw.gov.au/)
+# Weatherbit-API-Testing
+Study case [API Weatherbit](https://www.weatherbit.io/)
 
 Implementation:
 - Web Driver Manager

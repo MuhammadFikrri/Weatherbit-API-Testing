@@ -23,3 +23,13 @@ jobs:
         run: |
           cd target/site/serenity
           cp index.html ../report/
+      - name: Commit Files Report # transfer the new html files back into the repository
+        run: |
+          git config --local user.name "MuhammadFikrri"
+          git add ./report
+          git commit -m "Updating the repository report"    
+      - name: Push changes # push the output folder to your repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true

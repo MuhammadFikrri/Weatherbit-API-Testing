@@ -5,4 +5,4 @@ workflows:
   maven_test:
     jobs:
       - maven/test:
-          test_results_path: Weatherbit-API-Testing/API test/target/site/serenity/index.html
+          test_results_path: MuhammadFikrri/Weatherbit-API-Testing/API test/target/site/serenity/index.html

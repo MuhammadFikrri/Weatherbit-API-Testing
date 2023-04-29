@@ -19,12 +19,10 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: mvn clean verify
-      - name: Create report directory
-        run: mkdir -p /report
       - name: Copy Cucumber JSON Reports
         run: |
           cd target/site/serenity
-          cp index.html ../report/
+          cp index.html ../target
       - name: Commit Files Report # transfer the new html files back into the repository
         run: |
           git config --local user.name "MuhammadFikrri"

@@ -1,3 +1,3 @@
 "Story","Title","Result","Date","Stability","Duration (s)"
-"Get Hourly Forecast","Verify Hourly Forecast API with Valid Postal Code and Hours","SUCCESS","2023-04-29T07:28:02.653+07:00[Asia/Bangkok]","0.0","3.73"
-"Get Current Weather","Verify Current Weather API with Valid Longitude and Latitude","SUCCESS","2023-04-29T07:28:06.4+07:00[Asia/Bangkok]","0.0","0.87"
+"Get Hourly Forecast","Verify Hourly Forecast API with Valid Postal Code and Hours","SUCCESS","2023-04-29T09:53:15.535+07:00[Asia/Bangkok]","0.0","3.66"
+"Get Current Weather","Verify Current Weather API with Valid Longitude and Latitude","SUCCESS","2023-04-29T09:53:19.209+07:00[Asia/Bangkok]","0.0","1.19"

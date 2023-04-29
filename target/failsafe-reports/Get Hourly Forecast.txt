@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Get Hourly Forecast
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.828 s - in Get Hourly Forecast
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.791 s - in Get Hourly Forecast

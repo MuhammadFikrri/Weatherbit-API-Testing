@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
-            ./gradlew test
+            ./gradle test
   api_test:
     docker:
       - image: circleci/openjdk:11

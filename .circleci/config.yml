@@ -1,7 +1,8 @@
 version: '2.1'
 orbs:
-  maven: circleci/maven@x.y
+  maven: circleci/maven@1.4.1
 workflows:
   maven_test:
     jobs:
-      - maven/test
+      - maven/test:
+          test_results_path: Weatherbit-API-Testing/API test/target/site/serenity/index.html

@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Get Current Weather" skipped="0" tests="1" time="4.35" timestamp="2023-04-29 05:29:51"><testcase name="Verify Current Weather API with Valid Longitude and Latitude"/></testsuite>
+<?xml version="1.0" encoding="UTF-8"?><testsuite errors="0" failures="0" name="Get Current Weather" skipped="0" tests="1" time="0.87" timestamp="2023-04-29 07:28:06"><testcase name="Verify Current Weather API with Valid Longitude and Latitude"/></testsuite>
